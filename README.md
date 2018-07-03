@@ -34,3 +34,44 @@ module.exports = {
   }
 }
 ```
+* 4、this.$nextTick(function(){})
+
+> Vue 实现响应式并不是数据发生变化之后 DOM 立即变化，而是按一定的策略进行 DOM 的更新
+> $nextTick 是在下次 DOM 更新循环结束之后执行延迟回调，在修改数据之后使用 $nextTick，则可以在回调中获取更新后的 DOM
+
+```jsx
+<div class="app">
+    <div ref="msgDiv">{{msg}}</div>
+    <div v-if="msg1">Message got outside $nextTick: {{msg1}}</div>
+    <div v-if="msg2">Message got inside $nextTick: {{msg2}}</div>
+    <div v-if="msg3">Message got outside $nextTick: {{msg3}}</div>
+    <button @click="changeMsg">
+        Change the Message
+    </button>
+</div>
+
+new Vue({
+  el: '.app',
+  data: {
+    msg: 'Hello Vue.',
+    msg1: '',
+    msg2: '',
+    msg3: ''
+  },
+  methods: {
+    changeMsg() {
+      this.msg = "Hello world."
+      this.msg1 = this.$refs.msgDiv.innerHTML
+      this.$nextTick(() => {
+        this.msg2 = this.$refs.msgDiv.innerHTML
+      })
+      this.msg3 = this.$refs.msgDiv.innerHTML
+    }
+  }
+})
+
+```
+> 输出
+> Message got outside $nextTick: Hello Vue.
+> Message got inside $nextTick: Hello world.
+> Message got outside $nextTick: Hello Vue.
