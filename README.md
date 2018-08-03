@@ -127,9 +127,14 @@ methods: {
 > * v-on:click --> @click
 
 
+## 父组件调用子组件的方法
+> * This.$refs.son.fn()
 
 
-
+## v-if v-show
+> * v-show 都是渲染，只是css的dispaly:none
+> * v-if false 不会有dom渲染
+> * 一般来说，v-if 有更高的切换开销，而 v-show 有更高的初始渲染开销。因此，如果需要非常频繁地切换，则使用 v-show 较好；如果在运行时条件很少改变，则使用 v-if 较好
 
 
 
